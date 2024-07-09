@@ -8,22 +8,34 @@
 </head>
 <body>
     <div class="container">
-    
-    <form action="" class="Login">
-        <h1>Login</h1>
-        <label for="User Name"> </label>
-        <input type="?text" id=""  placeholder="UserName" name="username" required><br />
-        
-        <label for="password"></label>
-        <input type="password" id="password" placeholder="Password" name="password" required><br/>
+        <form class="login">
+            <h1>Login</h1>
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username (First Name)" name="username" required><br>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password" name="password" required><br>
 
-        <button type="submit" value="Login"> 
-            Login
-        </button>
-        <p>Don't have an account? <a href="register.html">Register Here</a></p>
-    </form>
-
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="register.html">Register Here</a></p>
+        </form>
     </div>
-    <script src="login.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var registeredUser = localStorage.getItem('registeredUser');
+            if (registeredUser) {
+                var user = JSON.parse(registeredUser);
+                document.getElementById('username').value = user.firstName;
+                document.getElementById('password').value = user.password;
+            }
+            
+            var loginForm = document.querySelector('.login');
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Login successful! Redirecting to homepage...');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
 </body>
 </html>
