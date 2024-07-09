@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - View Expenses by ID</title>
+    <style>
+        body {
+            background-color: rgb(7, 199, 71);
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            font-weight: bolder;
+        }
+        input, button {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Expense Tracker - View Expenses by ID</h2>
+
+    <label for="expenseId">Enter Expense ID:</label>
+    <input type="text" id="expenseId">
+    <button onclick="viewExpenseById()">View Expense</button>
+
+    <hr>
+
+    <a href="add_expense.html">Add Expenses</a>
+
+    <hr>
+
+    <h3>Expenses</h3>
+    <ul id="expensesList"></ul>
+
+    <script>
+        function viewExpenseById() {
+            let id = parseInt(document.getElementById('expenseId').value);
+
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+            let expense = expenses.find(function(item) {
+                return item.id === id;
+            });
+
+            if (expense) {
+                alert(`Expense ID: ${expense.id}\nDescription: ${expense.description}\nAmount: $${expense.amount.toFixed(2)}`);
+            } else {
+                alert('Expense not found.');
+            }
+        }
+
+        function displayExpenses() {
+            let expensesList = document.getElementById('expensesList');
+            expensesList.innerHTML = '';
+
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+            expenses.forEach(function(expense) {
+                let li = document.createElement('li');
+                li.textContent = `${expense.id}: ${expense.description} - $${expense.amount.toFixed(2)}`;
+                expensesList.appendChild(li);
+            });
+        }
+
+        displayExpenses();
+    </script>
+</body>
+</html>
