@@ -65,13 +65,15 @@
 
             expenses.push(expense);
 
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+
             document.getElementById('expenseDesc').value = '';
             document.getElementById('expenseAmount').value = '';
 
             displayExpenses();
         }
 
-        let expenses = [];
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
         function displayExpenses() {
             let expensesList = document.getElementById('expensesList');
